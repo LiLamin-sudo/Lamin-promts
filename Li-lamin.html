@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptScroll by Li Lamin</title>
+    <style>
+        :root { --bg-main: #060913; --bg-card: #111625; --accent-blue: #00F5D4; }
+        body { background: var(--bg-main); color: #FFF; font-family: sans-serif; display: flex; }
+        
+        /* Sidebar Menu */
+        #sidebar { width: 250px; height: 100vh; background: #111; position: fixed; left: -250px; transition: 0.3s; padding: 20px; z-index: 100; border-right: 1px solid #333; }
+        #sidebar.active { left: 0; }
+        .menu-btn { cursor: pointer; font-size: 24px; position: fixed; top: 20px; left: 20px; z-index: 101; }
+        
+        /* Main Content */
+        #content { flex-grow: 1; margin-left: 0; padding: 20px; transition: 0.3s; }
+        header { text-align: center; margin-bottom: 30px; }
+        .card { background: var(--bg-card); padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+        .prompt-box { background: #000; padding: 10px; font-family: monospace; font-size: 0.8rem; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<div class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('active')">☰</div>
+
+<div id="sidebar">
+    <h3 style="margin-bottom: 20px;">Categories</h3>
+    <div id="menuLinks"></div>
+</div>
+
+<div id="content">
+    <header>
+        <h1>PromptScroll</h1>
+        <p>Made by <strong>Li Lamin</strong></p>
+    </header>
+    <div id="cardsGrid"></div>
+</div>
+
+<script>
+// --- ADD PROMPTS HERE WITHOUT TOUCHING HTML ---
+const myPrompts = [
+    { cat: "Anime", title: "Naruto Style", prompt: "Nine tails chakra aura...", img: "https://picsum.photos/200" },
+    { cat: "Realism", title: "iPhone 15 Filter", prompt: "High quality 4k photo...", img: "https://picsum.photos/201" }
+    // Just add a new line like the one above to add more!
+];
+
+const categories = [...new Set(myPrompts.map(p => p.cat))];
+const menu = document.getElementById('menuLinks');
+const grid = document.getElementById('cardsGrid');
+
+categories.forEach(cat => {
+    menu.innerHTML += `<div style="padding:10px; cursor:pointer;" onclick="render('${cat}')">${cat}</div>`;
+});
+
+function render(cat) {
+    grid.innerHTML = '';
+    myPrompts.filter(p => p.cat === cat).forEach(p => {
+        grid.innerHTML += `<div class="card"><h3>${p.title}</h3><div class="prompt-box">${p.prompt}</div></div>`;
+    });
+}
+render(categories[0]);
+</script>
+</body>
+</html>
