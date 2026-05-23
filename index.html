@@ -55,11 +55,4 @@ categories.forEach(cat => {
 
 function render(cat) {
     grid.innerHTML = '';
-    myPrompts.filter(p => p.cat === cat).forEach(p => {
-        grid.innerHTML += `<div class="card"><h3>${p.title}</h3><div class="prompt-box">${p.prompt}</div></div>`;
-    });
-}
-render(categories[0]);
-</script>
-</body>
-</html>
+    myPrompts.filter(p => p.ca
