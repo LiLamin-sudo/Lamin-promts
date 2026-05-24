@@ -1,161 +1,279 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PromptScroll</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: #0d0e12; color: #e4e6eb; padding: 15px; }
-        
-        /* HEADER WITH YOUR BACKGROUND IMAGE 1000172359.jpg */
-        header { 
-            text-align: center; 
-            margin-bottom: 25px; 
-            padding: 50px 15px; 
-            border-radius: 12px;
-            background: linear-gradient(rgba(13, 14, 18, 0.6), #0d0e12), url('1000172359.jpg');
-            background-size: cover;
-            background-position: center;
-            border: 1px solid #23262d;
-        }
-        header h1 { font-size: 32px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        header p { color: #cbd5e1; font-size: 14px; margin-top: 6px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
-        
-        .filter-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
-        .filter-container::-webkit-scrollbar { display: none; }
-        .filter-btn { background: #1c1e24; color: #a0a5b0; border: none; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: all 0.2s; }
-        .filter-btn.active { background: #3a86ff; color: #ffffff; }
-
-        .stats { font-size: 12px; color: #656870; margin-bottom: 15px; font-weight: 500; }
-        .grid { display: flex; flex-direction: column; gap: 16px; }
-        
-        .card { background: #16181d; border: 1px solid #23262d; border-radius: 12px; padding: 16px; }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .tag { background: rgba(58, 134, 255, 0.1); color: #3a86ff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .copy-btn { background: #23262d; color: #e4e6eb; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
-        .copy-btn:active { background: #3a86ff; }
-        .prompt-text { background: #090a0c; color: #cbd5e1; padding: 12px; border-radius: 8px; font-size: 13px; line-height: 1.6; font-family: monospace; word-break: break-word; user-select: all; border: 1px solid #14161c; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Li Lamin Prompts - Ultimate AI Prompts Catalog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b0f19;
+    }
+    .heading-font {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
 </head>
-<body>
+<body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-900">
 
-    <header>
-        <h1>PromptScroll</h1>
-        <p>Made by Li Lamin</p>
-    </header>
+  <header class="sticky top-0 z-50 bg-[#0b0f19]/80 backdrop-blur-md border-b border-slate-800/80 px-4 py-4 md:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2.5 bg-gradient-to-tr from-cyan-500 via-purple-500 to-pink-500 rounded-xl shadow-lg shadow-cyan-500/10">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l8.982-11.795H14l1-6.105L6 14.904h4.813z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="heading-font text-2xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+            Li Lamin Prompts
+          </h1>
+          <p class="text-[10px] text-cyan-400 font-mono tracking-widest uppercase">AI Art Generation Masterclass</p>
+        </div>
+      </div>
 
-    <div class="filter-container" id="filters">
-        <button class="filter-btn active" onclick="filterCategory('all')">All Prompts</button>
-        <button class="filter-btn" onclick="filterCategory('enhancements')">Enhancements</button>
-        <button class="filter-btn" onclick="filterCategory('anime-to-real')">Anime to Real</button>
-        <button class="filter-btn" onclick="filterCategory('naruto')">Naruto Style</button>
-        <button class="filter-btn" onclick="filterCategory('bleach')">Bleach Style</button>
-        <button class="filter-btn" onclick="filterCategory('environments')">Environments</button>
-        <button class="filter-btn" onclick="filterCategory('movies')">Movie Posters</button>
-        <button class="filter-btn" onclick="filterCategory('fictional')">Transformations</button>
+      <div class="flex items-center gap-3 text-xs bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-full">
+        <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-slate-400">Total Prompts Pack: <strong class="text-white" id="total-prompt-count">0</strong> curated prompts</span>
+      </div>
     </div>
+  </header>
 
-    <div class="stats" id="counter">Showing 0 prompts</div>
-    <div class="grid" id="promptGrid"></div>
+  <main class="max-w-7xl w-full mx-auto px-4 py-6 md:px-8 flex-1 flex flex-col lg:flex-row gap-6">
+    
+    <aside class="w-full lg:w-72 shrink-0 flex flex-col gap-4">
+      
+      <div class="relative">
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Search prompts (e.g., 'Naruto', 'Leica')..."
+          class="w-full bg-slate-900/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-200"
+        />
+        <div class="absolute left-4 top-3.5 text-slate-500">
+          <i data-lucide="search" class="w-4 h-4"></i>
+        </div>
+      </div>
 
-    <script>
-        const promptDatabase = [
-            // --- YOUR SPECIFIC PROMPTS ---
-            { category: "enhancements", image: "dreamy_portrait.jpg", text: "Create a cinematic dreamy night portrait with a strong soft white backlight glow behind the subject, creating a bright natural halo around the hair and body edges. Keep the face 100% original and realistic with no changes to facial features, skin tone, hairstyle, pose, outfit, expression, or body structure. Add clean white rim lighting with a very slight warm tone, soft bloom glow, glowing edges, subtle lens flare, smooth skin highlights, and DSLR flash photography aesthetics. Background should remain dark and minimal to make the white backlight stand out beautifully. Add soft atmospheric haze, floating dust particles, shallow depth of field, cinematic contrast, and ultra realistic skin texture. Enhance the image with premium cinematic color grading, dreamy mood, and high-detail glowing outline around the subject. Viral Instagram aesthetic, ultra realistic, soft white glow, elegant cinematic lighting." },
-            { category: "enhancements", image: "iphone_photo.jpg", text: "Make the photo look like it was taken from iPhone 15 pro max camera. Enhance the quality of the photo. And make it high resolution 4k quality. Keep everything same as it is. Just enchance the quality of this photo. Remove noise and also unblurr blurry areas and keep his face same as it is." },
-            { category: "enhancements", text: "Turn this selfie into a midnight cyberpunk portrait with neon reflections, rainy atmosphere, and cinematic depth." },
-            { category: "enhancements", text: "Make this photo look like a scene from a Netflix series with dramatic lighting and realistic color grading." },
-            { category: "environments", text: "Create a realistic streetwear photoshoot version of me in Tokyo at night with blurred city lights." },
-            { category: "enhancements", text: "Transform this image into a luxury magazine cover while keeping my face natural." },
-            { category: "enhancements", text: "Make this look like an old money aesthetic portrait shot on a vintage Leica camera." },
-            { category: "fictional", text: "Create a realistic gym transformation poster version of me with dramatic shadows and detailed muscles." },
-            { category: "enhancements", text: "Turn this into a moody black-and-white cinematic portrait with sharp facial details and film grain." },
-            { category: "enhancements", text: "Make this image look like it was captured during golden hour with warm sunlight and natural skin tones." },
-            { category: "anime-to-real", text: "Realistic anime protagonist standing in a dim urban environment at night, dark red and black aesthetic, cinematic lighting, calm expression, soft rain atmosphere, realistic shadows, detailed streetwear, subtle anime features blended naturally into reality." },
-            { category: "anime-to-real", text: "Apply the anime character naturally onto the subject while preserving the original facial motion, pose, perspective, and body proportions. Keep the scene realistic with cinematic lighting and natural blending." },
-            { category: "anime-to-real", text: "Replace the person with the anime character while keeping the exact same body position, camera angle, environment, lighting, proportions, and photo composition. Make the character blend naturally into the real environment with realistic shadows and textures. Keep everything cinematic and natural, not overly cartoonish." },
-            { category: "enhancements", text: "Professional high-end high-fidelity commercial editorial retouching, optimal exposure correction, micro-contrast enhancement, global light balancing, cinematic color harmonization, flawless natural skin detail retention, look like high-end commercial masterwork." },
-            { category: "enhancements", text: "Flawless studio lighting correction, high-end photography magazine standard, fix uneven shadows, enhance depth and microtexture, looks entirely real, captured by elite professional photographer." },
+      <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-4 flex flex-col gap-2.5">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-2 mb-1">Categories</h3>
+        <nav class="flex flex-wrap lg:flex-col gap-1.5" id="categories-list">
+          </nav>
+      </div>
 
-            // 23 NARUTO PROMPTS
-            ...Array.from({length: 23}, (_, i) => ({
-                category: "naruto",
-                text: `Cinematic hyper-realistic ninja portrait, active glowing ${['Sharingan', 'Rinnegan', 'Sage Mode eyes', 'Nine-Tails orange chakra aura'][i%4]}, wearing a realistic weathered tactical ninja vest and dark high-end streetwear. Dimly lit dark hidden leaf village setting, detailed moody dramatic backlighting, cinematic shadows, high texture realism --ar 9:16 --style raw (Naruto Style Vol #${i+1})`
-            })),
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800/80 rounded-2xl p-4">
+        <div class="flex items-start gap-3">
+          <div class="p-1.5 bg-cyan-500/10 text-cyan-400 rounded-lg shrink-0">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold text-slate-200">Visual Catalog</h4>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Browse prompts alongside visual target guides. Click a card to view the breakdown and instantly copy the source string.
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
 
-            // 21 BLEACH PROMPTS
-            ...Array.from({length: 21}, (_, i) => ({
-                category: "bleach",
-                text: `Dark moody supernatural cinematic portrait, wearing a realistic jet-black samurai shihakusho robe, holding a detailed metallic katana hilt. Swirling spiritual pressure energy particles glowing dark ${['purple', 'blue', 'crimson', 'white'][i%4]} around the body. Dark minimal sky background, high fidelity cinematic rendering, stark sharp contrast (Bleach Style Vol #${i+1})`
-            })),
+    <section class="flex-1 flex flex-col gap-4">
+      <div class="flex items-center justify-between bg-slate-900/30 border border-slate-800/40 rounded-xl px-4 py-3">
+        <div class="text-xs text-slate-400">
+          Showing <span id="current-filter-count" class="text-cyan-400 font-semibold">0</span> items in <span id="current-category-name" class="text-white font-medium">All Prompts</span>
+        </div>
+        <button id="clear-search-btn" class="hidden text-xs text-pink-400 hover:text-pink-300 font-medium transition-colors">
+          Clear Search
+        </button>
+      </div>
 
-            // 22 ANIME-TO-REAL LIFE PROMPTS
-            ...Array.from({length: 19}, (_, i) => ({
-                category: "anime-to-real",
-                text: `Realistic modern human translation of a classic iconic anime style character, stylized modern technical outerwear, dark urban neon street alleyway at night, subtle stylized visual features woven realistically into natural real-world textures and cinematic lens aesthetics (Anime-To-Real Vol #${i+4})`
-            })),
+      <div id="prompts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        </div>
 
-            // 30 RANDOM ENVIRONMENT PROMPTS
-            ...Array.from({length: 29}, (_, i) => ({
-                category: "environments",
-                text: `Atmospheric cinematic environment backdrop, ${['cyberpunk wet neon alleyway', 'abandoned industrial concrete loft with dramatic god-rays', 'moody mist-covered dense pine forest at midnight', 'futuristic luxury glass penthouse over a glowing cityscape', 'ancient dark temple stone ruins with soft warm torchlight'][i%5]}, deep bokeh background, highly detailed global illumination, raw photography look (Environment Vol #${i+2})`
-            })),
+      <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center">
+        <div class="p-4 bg-slate-900 rounded-2xl border border-slate-800 mb-4 text-slate-600">
+          <i data-lucide="info" class="w-10 h-10"></i>
+        </div>
+        <h3 class="text-base font-semibold text-slate-200">No prompts found</h3>
+        <p class="text-xs text-slate-500 mt-1 max-w-sm">We couldn't find any prompts matching your criteria. Try adjusting your search query or selecting another category.</p>
+      </div>
+    </section>
 
-            // 19 MOVIE THEME POSTERS
-            ...Array.from({length: 19}, (_, i) => ({
-                category: "movies",
-                text: `Official dark moody cinematic movie character poster layout, zero titles, zero text. Close-up portrait frame of a solitary hero, dramatic key lighting casting heavy artistic shadows, professional color grading inspired by modern dark thrillers and sci-fi films, shot on Panavision anamorphic lenses (Movie Theme Poster #${i+1})`
-            })),
+  </main>
 
-            // 22 FICTIONAL TRANSFORMATION PROMPTS
-            ...Array.from({length: 21}, (_, i) => ({
-                category: "fictional",
-                text: `High-end cinematic character concept execution, seamlessly blending subject structural proportions with stylized ${['dark cybernetic mechanical armor elements', 'glowing crystalline biological accents', 'shimmering liquid-metal micro-textures', 'shadowy ethereal smoke aura wraps'][i%4]}, deep volumetric smoke, hyper realistic composition integration (Fictional Transformation #${i+2})`
-            }))
-        ];
+  <div id="prompt-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-[#0f172a] border border-slate-800 rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl shadow-cyan-500/5">
+      <div class="w-full h-48 relative overflow-hidden bg-slate-950">
+        <img id="modal-img" src="" alt="Preview" class="w-full h-full object-cover opacity-60">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/40 to-transparent"></div>
+      </div>
 
-        function displayPrompts(filter) {
-            const grid = document.getElementById('promptGrid');
-            grid.innerHTML = '';
-            
-            const filtered = filter === 'all' ? promptDatabase : promptDatabase.filter(p => p.category === filter);
-            document.getElementById('counter').innerText = `Showing ${filtered.length} viral prompts`;
+      <div class="p-6 pb-4 flex items-start justify-between gap-4 relative -mt-12">
+        <div class="w-full">
+          <span id="modal-badge" class="text-[10px] font-mono tracking-widest text-cyan-400 uppercase bg-cyan-950/80 border border-cyan-800/50 px-2.5 py-1 rounded-full backdrop-blur-sm">CATEGORY</span>
+          <h2 id="modal-title" class="heading-font text-xl font-bold text-slate-100 mt-3">Prompt Details</h2>
+        </div>
+        <button onclick="closeModal()" class="p-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-xl transition-all shadow-md">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
 
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                
-                const imageHtml = item.image ? `<img src="${item.image}" alt="Prompt Preview" style="width:100%; border-radius:8px; margin-bottom:12px; display:block; object-fit:cover; max-height:400px;">` : '';
+      <div class="p-6 pt-2 flex flex-col gap-5">
+        <div class="relative">
+          <label class="text-xs text-slate-400 font-medium block mb-2">Optimized AI Prompt Text:</label>
+          <div id="modal-text-container" class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300 leading-relaxed font-mono select-all relative group max-h-[200px] overflow-y-auto custom-scrollbar">
+            </div>
+        </div>
 
-                card.innerHTML = `
-                    <div class="card-header">
-                        <span class="tag">${item.category.replace('-', ' ')}</span>
-                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
-                    </div>
-                    ${imageHtml}
-                    <div class="prompt-text">${item.text}</div>
-                `;
-                grid.appendChild(card);
-            });
-        }
+        <div class="flex items-center gap-3">
+          <button id="copy-btn-modal" class="flex-1 bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-slate-950 hover:text-white font-bold py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm shadow-lg shadow-cyan-500/10">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span>Copy Full Prompt</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        function filterCategory(cat) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            displayPrompts(cat);
-        }
+  <div id="toast-notify" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-slate-800 text-slate-100 py-3.5 px-5 rounded-2xl shadow-xl shadow-cyan-500/5 flex items-center gap-3 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
+    <div class="p-1 bg-emerald-500/10 text-emerald-400 rounded-lg">
+      <i data-lucide="check-circle" class="w-5 h-5"></i>
+    </div>
+    <div class="text-xs">
+      <p class="font-semibold text-slate-200">Copied to Clipboard!</p>
+      <p class="text-slate-400 text-[10px] mt-0.5">Ready to paste in Midjourney / Stable Diffusion.</p>
+    </div>
+  </div>
 
-        function copyText(btn) {
-            const text = btn.parentElement.nextElementSibling.innerText;
-            navigator.clipboard.writeText(text);
-            const orig = btn.innerText;
-            btn.innerText = "Copied!";
-            btn.style.background = "#3a86ff";
-            setTimeout(() => { btn.innerText = orig; btn.style.background = "#23262d"; }, 1500);
-        }
+  <footer class="bg-slate-950/80 border-t border-slate-900 px-4 py-8 text-center text-xs text-slate-500">
+    <p>© 2026 Li Lamin prompts. Handcrafted premium AI prompt system.</p>
+    <p class="mt-2 text-cyan-500/60 font-mono text-[10px]">Version 2.5 • Visual Concept Catalog Edition</p>
+  </footer>
 
-        displayPrompts('all');
-    </script>
-</body>
-</html>
+  <script>
+    // Prompt database structured based on your request with design-matched preview photos
+    const ALL_PROMPTS = [
+      // CATEGORY 1: User Custom Core Requests
+      {
+        id: "core-1",
+        category: "Featured Masterpieces",
+        title: "Cinematic Dreamy Night Portrait",
+        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80",
+        prompt: "Create a cinematic dreamy night portrait with a strong soft white backlight glow behind the subject, creating a bright natural halo around the hair and body edges. Keep the face 100% original and realistic with no changes to facial features, skin tone, hairstyle, pose, outfit, expression, or body structure. Add clean white rim lighting with a very slight warm tone, soft bloom glow, glowing edges, subtle lens flare, smooth skin highlights, and DSLR flash photography aesthetics. Background should remain dark and minimal to make the white backlight stand out beautifully. Add soft atmospheric haze, floating dust particles, shallow depth of field, cinematic contrast, and ultra realistic skin texture. Enhance the image with premium cinematic color grading, dreamy mood, and high-detail glowing outline around the subject. Viral Instagram aesthetic, ultra realistic, soft white glow, elegant cinematic lighting."
+      },
+      {
+        id: "core-2",
+        category: "Featured Masterpieces",
+        title: "iPhone 15 Pro Max UHD Enhancer",
+        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+        prompt: "Make the photo look like it was taken from iPhone 15 pro max camera. Enhance the quality of the photo. And make it high resolution 4k quality. Keep everything same as it is. Just enchance the quality of this photo. Remove noise and also unblurr blurry areas and keep his face same as it is."
+      },
+      {
+        id: "core-3",
+        category: "Featured Masterpieces",
+        title: "Midnight Cyberpunk Portrait",
+        image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80",
+        prompt: "Turn this selfie into a midnight cyberpunk portrait with neon reflections, rainy atmosphere, and cinematic depth. Keep core facial structure untouched, blending neon blue and magenta rim lighting across cheeks, futuristic environment with micro-droplets on skin, shallow depth of field, 8k render."
+      },
+      {
+        id: "core-4",
+        category: "Featured Masterpieces",
+        title: "Netflix Series Cinematic Frame",
+        image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=600&q=80",
+        prompt: "Make this photo look like a scene from a Netflix series with dramatic lighting and realistic color grading. Cinematic cinematic high-dynamic range shadows, moody teal-and-orange grading, rich movie-like textures, authentic film camera focus, keeping original facial features completely unchanged."
+      },
+      {
+        id: "core-5",
+        category: "Featured Masterpieces",
+        title: "Tokyo Streetwear Photoshoot",
+        image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80",
+        prompt: "Create a realistic streetwear photoshoot version of me in Tokyo at night with blurred city lights. Hyper-realistic environment, authentic Japanese urban night aesthetic, glowing neon bokeh, street fashion outfit with high detailed textures, natural reflections on face, volumetric street haze."
+      },
+      {
+        id: "core-6",
+        category: "Featured Masterpieces",
+        title: "Luxury Magazine Cover Frame",
+        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+        prompt: "Transform this image into a luxury magazine cover while keeping my face natural. Vogue-style editorial backdrop, studio soft-box key lighting, crisp highlights, luxury designer clothing details, minimalist background design, award-winning editorial fashion photography style."
+      },
+      {
+        id: "core-7",
+        category: "Featured Masterpieces",
+        title: "Leica Vintage Old Money Aesthetic",
+        image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80",
+        prompt: "Make this look like an old money aesthetic portrait shot on a vintage Leica camera. Warm vintage film colors, 35mm lens rendering, soft shadows, high class timeless attire, luxurious minimalist outdoor background, authentic film grain, highly sophisticated color science."
+      },
+      {
+        id: "core-8",
+        category: "Featured Masterpieces",
+        title: "Gym Transformation & Shadow Poster",
+        image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80",
+        prompt: "Create a realistic gym transformation poster version of me with dramatic shadows and detailed muscles. Striking high-contrast side key-lighting (Chiaroscuro), ultra-defined musculature details, subtle sweat sheen, realistic fitness gym environment with industrial feel, motivational athletic vibes."
+      },
+      {
+        id: "core-9",
+        category: "Featured Masterpieces",
+        title: "Moody B&W Film Portrait",
+        image: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=600&q=80",
+        prompt: "Turn this into a moody black-and-white cinematic portrait with sharp facial details and film grain. High contrast monochrome palette, deep rich blacks, crisp white highlights, natural texture, Kodak Tri-X 400 film simulation, authentic expressions, emotional depth."
+      },
+      {
+        id: "core-10",
+        category: "Featured Masterpieces",
+        title: "Golden Hour Warm Sunlit Glow",
+        image: "https://images.unsplash.com/photo-1606244864456-8bea6349d5c5?auto=format&fit=crop&w=600&q=80",
+        prompt: "Make this image look like it was captured during golden hour with warm sunlight and natural skin tones. Volumetric amber godrays, soft warm side lighting, organic lens flare, ultra realistic skin textures, background with soft sun-dappled foliage and warm cinematic glow."
+      },
+      {
+        id: "core-11",
+        category: "Featured Masterpieces",
+        title: "Anime Character onto Real Subject",
+        image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",
+        prompt: "Apply the anime character naturally onto the subject while preserving the original facial motion, pose, perspective, and body proportions. Keep the scene realistic with cinematic lighting and natural blending."
+      },
+      {
+        id: "core-12",
+        category: "Featured Masterpieces",
+        title: "Anime-to-Real Character Replacement",
+        image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80",
+        prompt: "Replace the person with the anime character while keeping the exact same body position, camera angle, environment, lighting, proportions, and photo composition. Make the character blend naturally into the real environment with realistic shadows and textures. Keep everything cinematic and natural, not overly cartoonish."
+      },
+
+      // CATEGORY 2: Naruto Prompts (23 items)
+      ...Array.from({ length: 23 }, (_, i) => {
+        const narutoThemes = [
+          { title: "Sage of Six Paths Mode", image: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&w=400&q=80", detail: "glowing truth-seeking balls, orange senjutsu cloak, golden eyes, and dark sky" },
+          { title: "Itachi Crow Illusion", image: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80", detail: "swirling red sharingan pattern, dark clouds, flock of crows scattering in moonlight" },
+          { title: "Hidden Rain Village (Amegakure)", image: "https://images.unsplash.com/photo-1515621061946-eff1c2a352bd?auto=format&fit=crop&w=400&q=80", detail: "metallic skyscrapers, non-stop neon reflections, Akatsuki member in a wet cloak" },
+          { title: "Kakashi Chidori Strike", image: "https://images.unsplash.com/photo-1492011221367-f47e3ccd77a0?auto=format&fit=crop&w=400&q=80", detail: "crackling blue electricity lighting up a dark forest, lightning sparks, intense focus" },
+          { title: "Nine-Tails Chakra Shroud", image: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=400&q=80", detail: "bubbling orange-red energy cloak with tails, feral stance, dynamic vapor" },
+          { title: "Uchiha Sasuke Susanoo", image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=400&q=80", detail: "glowing purple ethereal warrior armor framing the user, bright purple lighting" },
+          { title: "Madara Uchiha Meteor Call", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80", detail: "shattered battlefield, glowing red Rinnegan, massive planetary debris falling" },
+          { title: "Jiraiya Toad Mountain Sage", image: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=400&q=80", detail: "rugged scrolls, stone toad statues, mountain mist of Mount Myoboku" },
+          { title: "Minato Yellow Flash Run", image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80", detail: "streak of yellow light, special kunai knives, leaves flying in motion blur" },
+          { title: "Pain's Shinra Tensei", image: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=400&q=80", detail: "cratered landscape, dust rings expanding, orange hair, black piercing receptors" },
+          { title: "Byakugan Active View", image: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=400&q=80", detail: "bulging veins around eyes, white glowing pupils, pale lavender chakra flow" },
+          { title: "Gaara Sand Shield Guard", image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=400&q=80", detail: "vortex of desert sand shielding the character, glowing gourd, desert wind" },
+          { title: "Obito Kamui Portal Swirl", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80", detail: "spiral spatial distortion in air, glowing single red eye, dark ruins" },
+          { title: "Konoha Hokage Rock Sunset", image: "https://images.unsplash.com/photo-1472289065668-ce650ac443d2?auto=format&fit=crop&w=400&q=80", detail: "cinematic view of stone carved faces, warm orange sunrays over village rooftops" },
+          { title: "Deidara Clay Art Explosion", image: "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?auto=format&fit=crop&w=400&q=80", detail: "stunning white smoke explosion, miniature birds, bird's-eye view, dynamic contrast" },
+          { title: "Orochimaru Snake Summoning", image: "https://images.unsplash.com/photo-1528156425096-2450002be47f?auto=format&fit=crop&w=400&q=80", detail: "giant
